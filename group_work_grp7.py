@@ -10,7 +10,8 @@ class Event:
         self.seats = seat_available
 
 
-viewEvents = [["ID", "|", "eventName", "|", "Date", "|", "seats", "|", "location"]]
+viewEvents = [["ID", "|", "eventName", "|",
+               "Date", "|", "seats", "|", "location"]]
 
 
 class Ticket:
@@ -20,7 +21,8 @@ class Ticket:
         self.price = price
 
 
-viewTicketCustomer = [["eventId", "|" ,"bookedCustomer", "|" ,"price"]]
+viewTicketCustomer = [["eventId", "|", "bookedCustomer", "|", "price"]]
+
 
 class EventTicketingSystem:
     def __init__(self):
@@ -32,16 +34,17 @@ class EventTicketingSystem:
         event = Event(eventId, eventName, Date, seat_available, location)
         self.events.append(event)
         duplicate = [eventId, "|", eventName,
-                    "|", Date, "|", seat_available, "|", location]
+                     "|", Date, "|", seat_available, "|", location]
         viewEvents.append(duplicate)
-        
+
     def viewEvents(self):
         print("{:<10}".format("All Events purchased with customers"))
-        print("------------------------------------------------------------------------------------------")
+        print("---------------------------------------------------------------------")
         for event in viewEvents:
-           print("{:<20} {:<3} {:<20} {:<3} {:<20} {:<3} {:<5} {:<3} {:20}".format(*event))
-        print("------------------------------------------------------------------------------------------")
-           
+            print(
+                "{:<5} {:<3} {:<15} {:<3} {:<10} {:<3} {:<10} {:<3} {:10}".format(*event))
+        print("---------------------------------------------------------------------")
+
     def book_ticket(self, eventId, customerName):
         for event in self.events:
             if event.Id == eventId:
@@ -58,15 +61,17 @@ class EventTicketingSystem:
         else:
             print("This event is not available")
             return False
+
     def viewAllTickets(self):
         print("{:<30}".format('All ticket purchased with customers'))
-        
-        print("-------------------------------------------------------")
-        
+
+        print("------------------------------------------")
+
         for ticket in viewTicketCustomer:
-           print("{:<20} {:<3} {:<20} {:<3} {:5}".format(*ticket))
-    
-        print("-------------------------------------------------------")
+            print("{:<7} {:<3} {:<20} {:<3} {:5}".format(*ticket))
+
+        print("------------------------------------------")
+
     def ticket_cancellation(self):
         canceled_ticket = self.eventBooked_tickets.popleft()
         viewTicketCustomer.pop(1)
@@ -80,7 +85,8 @@ class EventTicketingSystem:
 
     def refund(self):
         reduction = 1000 - (1000 * 10 / 100)
-        print(f"The {self.handling_tickets_cancellation[-1].customer} is refunded {reduction} $")
+        print(f"The {
+              self.handling_tickets_cancellation[-1].customer} is refunded {reduction} $")
         return reduction
 
 
@@ -103,7 +109,8 @@ eventTicketingSystem.add_event(14, "umuganura", "23/05/2026", 20, "kigali")
 eventTicketingSystem.add_event(15, "kwibohora", "23/04/2027", 20, "huye")
 eventTicketingSystem.add_event(16, "induction", "23/02/2022", 20, "musanze")
 eventTicketingSystem.add_event(17, "FIFA", "23/03/2023", 20, "huye")
-eventTicketingSystem.add_event(18, "Aper comfrence", "23/05/2025", 20, "kigali")
+eventTicketingSystem.add_event(
+    18, "Aper comfrence", "23/05/2025", 20, "kigali")
 eventTicketingSystem.add_event(19, "Talent show", "23/07/2026", 20, "musanze")
 eventTicketingSystem.add_event(20, "King show", "23/06/2023", 20, "kigali")
 eventTicketingSystem.viewEvents()
@@ -134,6 +141,7 @@ eventTicketingSystem.refund()
 eventTicketingSystem.book_ticket(1, "after the one cancel")
 eventTicketingSystem.viewAllTickets()
 
+
 def ask_yes_no(question):
     while True:
         response = input(question + " (yes/no): ").strip().lower()
@@ -161,6 +169,7 @@ def EventQuestions(number):
         number += 1
     eventTicketingSystem.viewEvents()
 
+
 def bookQuestions(number):
     while number < 2:
         book = ask_yes_no("Do you want to book ticket? ")
@@ -187,7 +196,8 @@ def review(number):
                         viewTicketCustomer.remove(ticket)
                     break
                 reduction = eventTicketingSystem.refund()
-                print(f"You {canceledTicket.customer} have been refunded {reduction} $")
+                print(f"You {canceledTicket.customer} have been refunded {
+                      reduction} $")
                 if (cancel):
                     bookQuestions(20)
                 number += 1
@@ -202,5 +212,6 @@ def last():
         bookQuestions(1)
     print("Time for review tickets to customers")
     review(1)
+
 
 last()
